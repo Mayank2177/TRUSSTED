@@ -2,7 +2,7 @@
 
 import sqlite3
 from collections.abc import Iterator
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator
@@ -38,7 +38,7 @@ def create_db_engine(settings: DbSettings) -> Engine:
     if not memory:
         assert database is not None
         Path(database).resolve().parent.mkdir(parents=True, exist_ok=True)
-        with sqlite3.connect(database, autocommit=True) as bootstrap:
+        with closing(sqlite3.connect(database, autocommit=True)) as bootstrap:
             mode = bootstrap.execute("PRAGMA journal_mode=WAL").fetchone()[0]
             if mode != "wal":
                 raise PersistenceError("Could not initialize WAL mode")

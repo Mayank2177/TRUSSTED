@@ -50,9 +50,12 @@ def test_in_memory_database_is_isolated() -> None:
     with first.begin() as connection:
         connection.exec_driver_sql("CREATE TABLE private_table (id INTEGER)")
     with second.connect() as connection:
-        assert connection.exec_driver_sql(
-            "SELECT count(*) FROM sqlite_master WHERE name='private_table'"
-        ).scalar_one() == 0
+        assert (
+            connection.exec_driver_sql(
+                "SELECT count(*) FROM sqlite_master WHERE name='private_table'"
+            ).scalar_one()
+            == 0
+        )
     first.dispose()
     second.dispose()
 
@@ -60,3 +63,13 @@ def test_in_memory_database_is_isolated() -> None:
 def test_invalid_settings() -> None:
     with pytest.raises(ValueError):
         DbSettings(url="sqlite:///:memory:", busy_timeout_ms=-1)
+
+
+def test_disposed_engine_releases_database_file(tmp_path: Path) -> None:
+    database = tmp_path / "released.db"
+    engine = create_db_engine(DbSettings(url=f"sqlite:///{database}"))
+    with engine.connect() as connection:
+        assert connection.exec_driver_sql("SELECT 1").scalar_one() == 1
+    engine.dispose()
+    database.unlink()
+    assert not database.exists()
