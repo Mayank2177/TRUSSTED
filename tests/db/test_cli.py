@@ -46,3 +46,10 @@ def test_bad_seed_exits_nonzero(tmp_path: Path) -> None:
     result = command(database, "seed", "--scenario-dir", str(tmp_path / "absent"))
     assert result.returncode != 0
     assert "Traceback" not in result.stderr
+
+
+def test_unusable_database_path_exits_without_traceback(tmp_path: Path) -> None:
+    result = command(tmp_path, "migrate")
+    assert result.returncode == 1
+    assert "Database command failed" in result.stderr
+    assert "Traceback" not in result.stderr

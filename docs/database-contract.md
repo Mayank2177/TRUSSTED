@@ -57,7 +57,7 @@ An empty bulk list has no run ID and records no stage state. The caller explicit
 3. Checks the public key exists and was valid at receipt creation.
 4. Flushes the header/events together inside the caller's transaction. A failure must propagate out so rollback removes partial writes.
 
-Receipt/event UPDATE and DELETE are blocked by SQLite triggers. Restrictive FKs preserve audit evidence on parent deletion. No repository method appends events after finalization. An out-of-band INSERT is not claimed impossible; full receipt verification detects an unexpected event or wrong final chain.
+Receipt/event UPDATE and DELETE are blocked by SQLite triggers. Connection setup enables recursive triggers, and migration 0007 also rejects INSERT identity collisions before SQLite REPLACE can delete immutable scenario/receipt/event rows, including alternate unique-key collisions. These insert guards remain active with recursive triggers disabled. Restrictive FKs preserve audit evidence on parent deletion. No repository method appends events after finalization. An out-of-band new noncolliding INSERT is not claimed impossible; full receipt verification detects an unexpected event or wrong final chain.
 
 The receipt owner buffers stage events and supplies the final signed bundle. Abrupt process death may leave a `running` record without a finalized receipt. Durable streaming/recovery is not implemented. The owner must agree canonical event-envelope fields and timestamp mapping (`ts` versus stored `created_at`). That integration remains pending and is not simulated as a verified production path.
 

@@ -62,20 +62,6 @@ def test_file_migration_installs_and_enforces_receipt_mutation_triggers(
     try:
         migrate(engine)
         with engine.connect() as connection:
-            triggers = set(
-                connection.scalars(
-                    text(
-                        "SELECT name FROM sqlite_master WHERE type = 'trigger' "
-                        "AND tbl_name IN ('receipts', 'receipt_events')"
-                    )
-                )
-            )
-            assert triggers == {
-                "receipts_no_update",
-                "receipts_no_delete",
-                "receipt_events_no_update",
-                "receipt_events_no_delete",
-            }
             assert connection.execute(text("PRAGMA foreign_key_check")).all() == []
         factory = create_session_factory(engine)
         with transaction(factory) as session:

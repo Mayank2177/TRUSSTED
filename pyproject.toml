@@ -21,6 +21,7 @@ dev = [
   "hypothesis==6.170.10",
   "ruff==0.17.2",
   "mypy==2.4.0",
+  "pip-audit==2.10.1",
 ]
 
 [project.scripts]

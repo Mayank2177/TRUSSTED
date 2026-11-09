@@ -11,7 +11,7 @@ from sqlalchemy.engine import make_url
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from warrant.db.errors import PersistenceError, storage_errors
+from warrant.db.errors import DatabaseBusyError, PersistenceError, storage_errors
 
 
 class DbSettings(BaseModel):
@@ -31,17 +31,38 @@ class DbSettings(BaseModel):
         return value
 
 
+def _bootstrap_file(database: str, settings: DbSettings) -> None:
+    """Initialize WAL and preserve the public error boundary before SQLAlchemy starts."""
+    try:
+        Path(database).resolve().parent.mkdir(parents=True, exist_ok=True)
+        with closing(
+            sqlite3.connect(
+                database,
+                autocommit=True,
+                timeout=settings.busy_timeout_ms / 1000,
+            )
+        ) as bootstrap:
+            mode = bootstrap.execute("PRAGMA journal_mode=WAL").fetchone()[0]
+            if mode != "wal":
+                raise PersistenceError("Could not initialize WAL mode")
+    except sqlite3.Error as error:
+        if getattr(error, "sqlite_errorcode", 0) & 255 in {
+            sqlite3.SQLITE_BUSY,
+            sqlite3.SQLITE_LOCKED,
+        }:
+            raise DatabaseBusyError("Database initialization lock timed out") from error
+        raise PersistenceError("Could not initialize the local database") from error
+    except OSError as error:
+        raise PersistenceError("Could not prepare the local database directory") from error
+
+
 def create_db_engine(settings: DbSettings) -> Engine:
     """Create an engine with per-connection integrity and file-backed WAL."""
     database = make_url(settings.url).database
     memory = database in {None, "", ":memory:"}
     if not memory:
         assert database is not None
-        Path(database).resolve().parent.mkdir(parents=True, exist_ok=True)
-        with closing(sqlite3.connect(database, autocommit=True)) as bootstrap:
-            mode = bootstrap.execute("PRAGMA journal_mode=WAL").fetchone()[0]
-            if mode != "wal":
-                raise PersistenceError("Could not initialize WAL mode")
+        _bootstrap_file(database, settings)
     engine = create_engine(
         settings.url,
         connect_args={"autocommit": False, "check_same_thread": False},
@@ -54,6 +75,7 @@ def create_db_engine(settings: DbSettings) -> Engine:
         connection.autocommit = True
         try:
             connection.execute("PRAGMA foreign_keys=ON")
+            connection.execute("PRAGMA recursive_triggers=ON")
             connection.execute(f"PRAGMA busy_timeout={settings.busy_timeout_ms:d}")
         finally:
             connection.autocommit = previous

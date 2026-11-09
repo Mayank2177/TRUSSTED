@@ -49,7 +49,7 @@ Use a different file for experiments rather than deleting a database containing 
 
 ## Migrations and seeding
 
-`warrant db migrate` applies the six Alembic revisions and creates 15 application tables. `alembic_version` is Alembic's additional bookkeeping table. Runtime startup does not silently invent tables.
+`warrant db migrate` applies seven Alembic revisions and creates 15 application tables. The seventh adds replacement-write guards discovered during independent review; it preserves existing data. `alembic_version` is Alembic's additional bookkeeping table. Runtime startup does not silently invent tables.
 
 ```powershell
 uv run alembic current
@@ -91,6 +91,8 @@ uv run pytest -m "not bench"
 uv run ruff format --check .
 uv run ruff check .
 uv run mypy --strict src
+uv export --locked --no-emit-project --format requirements-txt --output-file .tools/audit-requirements.txt
+uv run --locked pip-audit --disable-pip --require-hashes --strict -r .tools/audit-requirements.txt
 ```
 
 Ordinary tests use isolated in-memory databases. Migration/WAL/concurrency tests use temporary file databases. The bounded temporary test path is `.tools/pytest`, ignored by Git; parallel test processes must override `--basetemp` with distinct directories. No live LLM/network is used by tests. Windows and Ubuntu checks are configured in the database GitHub Actions workflow; a local Windows run does not establish that remote CI has passed.

@@ -182,6 +182,7 @@ def test_complete_storage_handoff(factory: sessionmaker[Session], registry: None
         "0003_evidence",
         "0004_outcomes",
         "0005_receipts",
+        "0006_credentials",
     ],
 )
 def test_each_schema_revision_upgrades_without_losing_data(tmp_path: Path, revision: str) -> None:
