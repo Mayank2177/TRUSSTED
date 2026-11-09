@@ -91,11 +91,11 @@ uv run pytest -m "not bench"
 uv run ruff format --check .
 uv run ruff check .
 uv run mypy --strict src
-uv export --locked --no-emit-project --format requirements-txt --output-file .tools/audit-requirements.txt
-uv run --locked pip-audit --disable-pip --require-hashes --strict -r .tools/audit-requirements.txt
+uv export --locked --no-emit-project --format requirements-txt --output-file .audit-requirements.txt
+uv run --locked pip-audit --disable-pip --require-hashes --strict -r .audit-requirements.txt
 ```
 
-Ordinary tests use isolated in-memory databases. Migration/WAL/concurrency tests use temporary file databases. The bounded temporary test path is `.tools/pytest`, ignored by Git; parallel test processes must override `--basetemp` with distinct directories. No live LLM/network is used by tests. Windows and Ubuntu checks are configured in the database GitHub Actions workflow; a local Windows run does not establish that remote CI has passed.
+Ordinary tests use isolated in-memory databases. Migration/WAL/concurrency tests use temporary file databases. The bounded temporary test path is `.pytest-tmp` at the repository root, ignored by Git; parallel test processes must override `--basetemp` with distinct directories whose parent exists. No live LLM/network is used by tests. Windows and Ubuntu checks are configured in the database GitHub Actions workflow; a local Windows run does not establish that remote CI has passed.
 
 ## Integration still owned by the team
 

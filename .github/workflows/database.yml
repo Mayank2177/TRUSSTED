@@ -11,6 +11,7 @@ permissions:
 jobs:
   database:
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
@@ -25,8 +26,8 @@ jobs:
       - run: python -m uv run ruff check .
       - run: python -m uv run mypy --strict src
       - run: python -m uv run pytest -m "not bench"
-      - run: python -m uv export --locked --no-emit-project --format requirements-txt --output-file .tools/audit-requirements.txt
-      - run: python -m uv run --locked pip-audit --disable-pip --require-hashes --strict -r .tools/audit-requirements.txt
+      - run: python -m uv export --locked --no-emit-project --format requirements-txt --output-file .audit-requirements.txt
+      - run: python -m uv run --locked pip-audit --disable-pip --require-hashes --strict -r .audit-requirements.txt
       - run: python -m uv run warrant db migrate
       - run: python -m uv run warrant db seed --scenario-dir examples/db/scenarios --fixture-root examples/db/fixtures
       - run: python -m uv run warrant db seed --scenario-dir examples/db/scenarios --fixture-root examples/db/fixtures

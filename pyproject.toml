@@ -36,7 +36,7 @@ exclude-newer = "2026-10-26T00:00:00Z"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
-addopts = "--basetemp=.tools/pytest"
+addopts = "--basetemp=.pytest-tmp"
 markers = ["bench: external benchmark evaluation, excluded from ordinary tests"]
 filterwarnings = ["error"]
 
