@@ -48,24 +48,6 @@ if decision.result.value != "BLOCK":
 ```
 STEP_UP means a human must review the decision **before** you create the order.
 
-## Design notes
-- The LLM is untrusted and sees only sanitised visible text. Each extracted record must quote
-  verbatim evidence from the page that contains its price, else it is rejected.
-- "verified" requires an independent reference; the page agreeing with itself does not count.
-- Ranking is a pure function (no LLM, input-order independent). Price/delivery use ratio-to-best
-  scoring so near-equal offers stay near-equal (this powers the policy's close-call check).
-- Fail closed: stage errors surface as `StageError`s and force STEP_UP/BLOCK in policy.
-- PayPal: sandbox by default; live requires `allow_live=True`. Order creation is idempotent via
-  `PayPal-Request-Id`, refuses BLOCK decisions and any decision/cart mismatch.
-- Every threshold, severity, alias and prompt is configuration (`config.py`).
-
-## Not verified / known limits (read before the demo)
-1. **No live API runs.** Channel3 and PayPal adapters follow their public docs and are tested
-   against fakes only. Channel3 docs show several offer shapes; parsing is tolerant but you
-   must run one real search/lookup. Check PayPal's `payment_source.paypal.experience_context`
-   fields against developer.paypal.com for your sandbox app.
-2. `AnthropicClient` is untested against the live API.
-3. Facts that page and reference falsify consistently are not detected.
 4. Channel3-derived candidates have no independent reference (policy steps up above the
    configured amount) and may lack specs, so spec-constrained intents can disqualify them.
 5. Not included: page fetching, HTTP server/Render deployment, UI, perturbation check,
