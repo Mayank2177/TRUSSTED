@@ -1,0 +1,15 @@
+User intent ─► Channel3 search (candidates) ─► our pipeline (extract, cross-check, rank)
+                                   │                    │
+                     Channel3 data as an      decision: ALLOW / STEP_UP / BLOCK
+                     independent reference                │
+                                                 PayPal sandbox approval + payment
+                                                          │
+                                       demo hosted on Render (+ optional AG Grid table)
+
+
+
+
+Channel3 returns normalized prices, availability and buy links for 100M+ products from 25,000+ retailers. That gives us real candidate products and an independent reference source for our cross-check, which fits stage 2 directly. Its prize is $1,500. Rules require calling it as a meaningful part of the product experience, not just referencing it.
+Render hosts the demo and API is cheap and quick, and judges can then open it without setup. It has prizes of $1,000, $750 and $500 in credits.
+
+While building a decisions table (candidates, violations, flags, conflicts), AG Grid, where it uses it's grid features are used properly. It has the largest sponsor prize, $5,000 for first place. A plain HTML table is fine if time is short. Don’t add it only to chase the prize.
