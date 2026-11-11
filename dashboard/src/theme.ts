@@ -4,7 +4,7 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#0B0F17',
+      default: '#07090E',
       paper: '#131924',
     },
     primary: {
@@ -23,7 +23,7 @@ export const darkTheme = createTheme({
     },
     text: {
       primary: '#F9FAFB',
-      secondary: '#9CA3AF',
+      secondary: '#94A3B8',
     },
   },
   typography: {
@@ -79,6 +79,71 @@ export const darkTheme = createTheme({
           fontWeight: 700,
           fontFamily: '"JetBrains Mono", monospace',
           letterSpacing: '0.05em',
+        },
+      },
+    },
+  },
+});
+
+export const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    background: {
+      default: '#F8FAFC',
+      paper: '#FFFFFF',
+    },
+    primary: {
+      main: '#2563EB',
+      light: '#3B82F6',
+      dark: '#1D4ED8',
+    },
+    secondary: {
+      main: '#10B981',
+    },
+    error: {
+      main: '#EF4444',
+    },
+    warning: {
+      main: '#F59E0B',
+    },
+    text: {
+      primary: '#0F172A',
+      secondary: '#64748B',
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    h5: {
+      fontWeight: 700,
+      letterSpacing: '-0.02em',
+    },
+    h6: {
+      fontWeight: 600,
+      letterSpacing: '-0.01em',
+    },
+  },
+  shape: {
+    borderRadius: 12,
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid rgba(0, 0, 0, 0.08)',
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
+          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: 600,
+          borderRadius: 8,
+          padding: '8px 18px',
         },
       },
     },
