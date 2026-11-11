@@ -1,15 +1,29 @@
+// src/views/LimitationsView.tsx
 import React from 'react';
+import { Box, Typography, Card, CardContent } from '@mui/material';
+import { ShieldAlert } from 'lucide-react';
 
-export const LimitationsView: React.FC = () => (
-  <div>
-    <h2>Known Limitations</h2>
-    <ol style={{ lineHeight: '1.6', color: 'var(--text-muted)' }}>
-      <li><strong>Poisoned-but-consistent facts:</strong> Both sources agreeing on a falsehood pass checks (Scenario S6).</li>
-      <li><strong>LLM extraction risk:</strong> Schema constraints reduce, but do not eliminate, untrusted text risks.</li>
-      <li><strong>Perturbation latency/cost:</strong> Checks add overhead and can trigger false positives on close choices.</li>
-      <li><strong>User Intent dependency:</strong> Deterministic ranking requires explicit intent, which many users lack.</li>
-      <li><strong>Receipt scope:</strong> A signed receipt proves record integrity, not absolute input truth.</li>
-      <li><strong>Synthetic fixtures:</strong> Results derive from synthetic fixtures and do not generalise directly to the open web without testing.</li>
-    </ol>
-  </div>
-);
+export const LimitationsView: React.FC = () => {
+  return (
+    <Box>
+      <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>System Limitations & Constraints</Typography>
+      <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
+        Transparent documentation of known platform boundaries and edge cases.
+      </Typography>
+
+      <Card variant="outlined" sx={{ borderColor: 'warning.main' }}>
+        <CardContent sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+          <ShieldAlert color="var(--mui-palette-warning-main)" size={24} />
+          <Box>
+            <Typography variant="h6" sx={{ fontSize: '1.05rem', fontWeight: 600, mb: 1 }}>
+              Known S6 Limitation: Poisoned-but-Consistent Facts
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
+              The current verification pipeline relies on consistency checks across extracted assertions and independent evidence streams. If an attacker introduces poisoned data that remains internally consistent across all cross-checked sources, the pipeline may permit the option. Future iterations will incorporate deeper anomaly detection to mitigate this limitation.
+            </Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    </Box>
+  );
+};

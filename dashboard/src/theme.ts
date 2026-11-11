@@ -1,151 +1,112 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, alpha } from '@mui/material/styles';
 
-export const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: {
-      default: '#07090E',
-      paper: '#131924',
-    },
-    primary: {
-      main: '#6366F1', // Indigo accent
-      light: '#818CF8',
-      dark: '#4F46E5',
-    },
-    secondary: {
-      main: '#10B981', // Emerald success
-    },
-    error: {
-      main: '#EF4444', // Red block
-    },
-    warning: {
-      main: '#F59E0B', // Amber step-up
-    },
-    text: {
-      primary: '#F9FAFB',
-      secondary: '#94A3B8',
-    },
+// Warrant Design Tokens
+export const warrantColors = {
+  light: {
+    background: '#FFFFFF',
+    surface: '#F6F7F9',
+    raisedSurface: '#FFFFFF',
+    border: '#D9DDE3',
+    text: '#14171C',
+    mutedText: '#555E6B',
+    accent: '#2457D6',
   },
-  typography: {
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    h5: {
-      fontWeight: 700,
-      letterSpacing: '-0.02em',
-    },
-    h6: {
-      fontWeight: 600,
-      letterSpacing: '-0.01em',
-    },
-    subtitle2: {
-      fontFamily: '"JetBrains Mono", monospace',
-      fontSize: '0.75rem',
-      letterSpacing: '0.05em',
-      textTransform: 'uppercase',
-    },
+  dark: {
+    background: '#0F1115',
+    surface: '#171A21',
+    raisedSurface: '#1E222B',
+    border: '#2C323D',
+    text: '#E8EAEE',
+    mutedText: '#9AA3B2',
+    accent: '#6C94FF',
   },
-  shape: {
-    borderRadius: 12,
-  },
-  components: {
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          backgroundImage: 'none',
-          backgroundColor: '#131924',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.25)',
-          backdropFilter: 'blur(10px)',
-          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-          '&:hover': {
-            borderColor: 'rgba(99, 102, 241, 0.4)',
-            boxShadow: '0px 8px 30px rgba(99, 102, 241, 0.15)',
+  decision: {
+    allowLight: '#1B7F4B',
+    allowDark: '#4CC38A',
+    stepUpLight: '#9A6700',
+    stepUpDark: '#E3B341',
+    blockLight: '#B42318',
+    blockDark: '#FF7B72',
+  }
+};
+
+export const MONOSPACE_FONT = '"JetBrains Mono", monospace';
+
+export const createAppTheme = (mode: 'light' | 'dark') => {
+  const tokens = mode === 'dark' ? warrantColors.dark : warrantColors.light;
+  const decision = warrantColors.decision;
+
+  return createTheme({
+    palette: {
+      mode,
+      background: {
+        default: tokens.background,
+        paper: tokens.surface,
+      },
+      text: {
+        primary: tokens.text,
+        secondary: tokens.mutedText,
+      },
+      primary: {
+        main: tokens.accent,
+      },
+      divider: tokens.border,
+      error: {
+        main: mode === 'dark' ? decision.blockDark : decision.blockLight,
+      },
+      warning: {
+        main: mode === 'dark' ? decision.stepUpDark : decision.stepUpLight,
+      },
+      success: {
+        main: mode === 'dark' ? decision.allowDark : decision.allowLight,
+      },
+    },
+    typography: {
+      fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      h1: { fontWeight: 700, letterSpacing: '-0.02em' },
+      h2: { fontWeight: 600, letterSpacing: '-0.01em' },
+      h3: { fontWeight: 600 },
+      button: { textTransform: 'none', fontWeight: 500 },
+    },
+    shape: {
+      borderRadius: 8,
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          body: {
+            backgroundColor: tokens.background,
+            color: tokens.text,
+            transition: 'background-color 0.2s ease, color 0.2s ease',
+          },
+        },
+      },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            backgroundColor: tokens.raisedSurface,
+            border: `1px solid ${tokens.border}`,
+            backgroundImage: 'none',
+            boxShadow: 'none',
+          },
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: '6px',
+            padding: '8px 16px',
+            boxShadow: 'none',
+            '&:hover': {
+              boxShadow: 'none',
+            },
           },
         },
       },
     },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          fontWeight: 600,
-          borderRadius: 8,
-          padding: '8px 18px',
-        },
-      },
-    },
-    MuiChip: {
-      styleOverrides: {
-        root: {
-          fontWeight: 700,
-          fontFamily: '"JetBrains Mono", monospace',
-          letterSpacing: '0.05em',
-        },
-      },
-    },
-  },
-});
+  });
+};
 
-export const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-    background: {
-      default: '#F8FAFC',
-      paper: '#FFFFFF',
-    },
-    primary: {
-      main: '#2563EB',
-      light: '#3B82F6',
-      dark: '#1D4ED8',
-    },
-    secondary: {
-      main: '#10B981',
-    },
-    error: {
-      main: '#EF4444',
-    },
-    warning: {
-      main: '#F59E0B',
-    },
-    text: {
-      primary: '#0F172A',
-      secondary: '#64748B',
-    },
-  },
-  typography: {
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    h5: {
-      fontWeight: 700,
-      letterSpacing: '-0.02em',
-    },
-    h6: {
-      fontWeight: 600,
-      letterSpacing: '-0.01em',
-    },
-  },
-  shape: {
-    borderRadius: 12,
-  },
-  components: {
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          backgroundImage: 'none',
-          backgroundColor: '#FFFFFF',
-          border: '1px solid rgba(0, 0, 0, 0.08)',
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
-          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          fontWeight: 600,
-          borderRadius: 8,
-          padding: '8px 18px',
-        },
-      },
-    },
-  },
-});
+// Export pre-configured themes expected by App.tsx
+export const darkTheme = createAppTheme('dark');
+export const lightTheme = createAppTheme('light');

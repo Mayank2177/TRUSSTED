@@ -59,7 +59,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <Chip
               icon={<Sparkles size={14} color="#818CF8" />}
-              label="Decision Integrity Engine • Research Prototype"
+              label="AI Shopping-Agent Decision Integrity Layer • Research Prototype"
               variant="outlined"
               sx={{ mb: 3, borderColor: 'primary.main', color: 'primary.light', fontWeight: 700, px: 2, py: 1, backgroundColor: 'action.hover' }}
             />
@@ -67,16 +67,16 @@ export const LandingView: React.FC<LandingViewProps> = ({
 
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}>
             <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 900, letterSpacing: '-0.04em', fontSize: { xs: '2.5rem', md: '4.2rem' }, lineHeight: 1.1 }}>
-              Verify before <br />
+              Trust decisions, <br />
               <Box component="span" sx={{ background: 'linear-gradient(135deg, #6366F1 0%, #3B82F6 50%, #EC4899 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                you trust.
+                not persuasion.
               </Box>
             </Typography>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}>
             <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '750px', mx: 'auto', mb: 5, lineHeight: 1.6, fontWeight: 400 }}>
-              Behind every checkout link is a story[cite: 6]. TRUSSTED connects the signals—DNS telemetry, certificates, and merchant intent—so you can spot phishing storefronts instantly.
+              Warrant evaluates AI shopping-agent decisions by extracting product facts, cross-checking independent evidence, ranking options deterministically, testing decision stability, and recording auditable outcomes.
             </Typography>
           </motion.div>
 
@@ -100,7 +100,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
                     '&:hover': { bgcolor: 'primary.dark' }
                   }}
                 >
-                  <span>Launch Live Dashboard</span>
+                  <span>Explore the Dashboard</span>
                   <motion.span
                     animate={{ x: [0, 6, 0] }}
                     transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
@@ -128,7 +128,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
             }}>
               <Box sx={{ px: 4, py: 2.5, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="caption" sx={{ fontWeight: 800, letterSpacing: '0.1em', color: 'text.secondary' }}>
-                  LIVE EVIDENCE GRAPH • HOVER A NODE
+                  EVIDENCE GRAPH • HOVER A NODE
                 </Typography>
                 <Typography variant="caption" sx={{ color: 'primary.main', fontFamily: 'monospace' }}>
                   {activeNode}
@@ -138,10 +138,10 @@ export const LandingView: React.FC<LandingViewProps> = ({
               <CardContent sx={{ p: 5, minHeight: '280px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                 <Box sx={{ width: '100%', maxWidth: '700px', height: '140px', position: 'relative', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
                   {[
-                    { id: 'paypal-secure-login.com', label: 'paypal-secure-login.com', color: '#EF4444', desc: 'Phishing domain detected via OpenPhish' },
-                    { id: 'TLS 1.3 valid', label: 'TLS 1.3 Valid', color: '#10B981', desc: 'Certificate issuer: Let’s Encrypt (Dynamic CA)' },
-                    { id: 'RDAG 3 days old', label: 'RDAP: 3 Days Old', color: '#F59E0B', desc: 'Domain registered 72 hours ago' },
-                    { id: 'High Risk', label: 'High Risk Score (87%)', color: '#EF4444', desc: 'Triggered Scenario S1 Phishing Storefront' }
+                    { id: 'extraction', label: 'Fact Extraction', color: '#6366F1', desc: 'Isolating product assertions and agent criteria' },
+                    { id: 'crosscheck', label: 'Cross-Check', color: '#10B981', desc: 'Verifying claims against independent evidence streams' },
+                    { id: 'ranking', label: 'Deterministic Rank', color: '#F59E0B', desc: 'Scoring options using deterministic multi-factor policy' },
+                    { id: 'decision', label: 'Decision Output', color: '#3B82F6', desc: 'Issuing verifiable ALLOW, STEP_UP, or BLOCK outcomes' }
                   ].map((node, i) => (
                     <motion.div
                       key={i}
@@ -166,10 +166,10 @@ export const LandingView: React.FC<LandingViewProps> = ({
           </motion.div>
         </Container>
 
-        {/* --- FIVE STEPS BENTO GRID WITH ANIMATED TRAJECTORY ARC OVERLAY --- */}
+        {/* --- SEVEN-STAGE PIPELINE BENTO GRID WITH ANIMATED TRAJECTORY ARC OVERLAY --- */}
         <Container maxWidth="lg" sx={{ my: 10, position: 'relative' }}>
 
-          {/* Animated SVG Curved Trajectory Arc with Floating Hex Labels (Matching reference screenshot) */}
+          {/* Animated SVG Curved Trajectory Arc with Floating Hex Labels */}
           <Box sx={{ position: 'absolute', top: -60, left: 0, width: '100%', height: '160px', pointerEvents: 'none', display: { xs: 'none', md: 'block' }, zIndex: 5 }}>
             <svg width="100%" height="100%" viewBox="0 0 1100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
               {/* Glowing Curved Background Path */}
@@ -203,40 +203,42 @@ export const LandingView: React.FC<LandingViewProps> = ({
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               style={{ position: 'absolute', top: '15px', left: '28%', fontFamily: 'monospace', fontSize: '10px', color: '#818CF8', opacity: 0.8 }}
             >
-              38
+              EXTRACT
             </motion.div>
             <motion.div
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               style={{ position: 'absolute', top: '5px', left: '55%', fontFamily: 'monospace', fontSize: '10px', color: '#3B82F6', opacity: 0.8 }}
             >
-              94
+              PERTURB
             </motion.div>
             <motion.div
               animate={{ y: [0, -5, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               style={{ position: 'absolute', top: '35px', left: '72%', fontFamily: 'monospace', fontSize: '10px', color: '#10B981', opacity: 0.8 }}
             >
-              89
+              RECEIPT
             </motion.div>
           </Box>
 
           <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography variant="h3" sx={{ fontWeight: 900, letterSpacing: '-0.03em' }}>Five steps. One answer[cite: 7].</Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>Rigorous zero-trust inspection pipeline built for automated checkout protocols.</Typography>
+            <Typography variant="h3" sx={{ fontWeight: 900, letterSpacing: '-0.03em' }}>Seven pipeline stages. Complete integrity.</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>Rigorous zero-trust decision inspection pipeline built for automated shopping agents.</Typography>
           </Box>
 
           <Grid container spacing={3}>
             {[
-              { step: '01', title: 'Submit', desc: 'A link, domain, or transaction payload[cite: 7].', icon: Search },
-              { step: '02', title: 'Investigate', desc: 'DNS, redirects, SSL certificates, threat feeds[cite: 7].', icon: Network },
-              { step: '03', title: 'Analyse', desc: 'Rules find it. AI explains it[cite: 7].', icon: Cpu },
-              { step: '04', title: 'Assess', desc: 'One of five clear risk levels[cite: 7].', icon: ShieldAlert },
-              { step: '05', title: 'Verify', desc: 'A record no one can alter[cite: 7].', icon: CheckSquare },
+              { step: '01', title: 'Extract', desc: 'Isolate key product assertions and agent criteria.', icon: Search },
+              { step: '02', title: 'Cross-check', desc: 'Verify claims against independent evidence streams.', icon: Network },
+              { step: '03', title: 'Rank', desc: 'Score options using deterministic multi-factor policy.', icon: Cpu },
+              { step: '04', title: 'Perturb', desc: 'Test decision stability against input variations.', icon: ShieldAlert },
+              { step: '05', title: 'Decide', desc: 'Issue verifiable ALLOW, STEP_UP, or BLOCK outcomes.', icon: CheckSquare },
+              { step: '06', title: 'Credential', desc: 'Apply optional authorization proofs.', icon: Sparkles },
+              { step: '07', title: 'Receipt', desc: 'Record auditable outcomes and event trails.', icon: CheckSquare },
             ].map((card, idx) => {
               const Icon = card.icon;
               return (
-                <Grid item xs={12} sm={6} md={2.4} key={idx}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

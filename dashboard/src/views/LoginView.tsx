@@ -37,7 +37,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess, onSwitchTo
     <Container maxWidth="xs" sx={{ height: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Card variant="outlined" sx={{ width: '100%', p: 2, bgcolor: 'rgba(15, 23, 42, 0.85)', borderColor: 'rgba(255,255,255,0.08)', borderRadius: 3 }}>
         <CardContent>
-          <Typography variant="h5" component="h2" align="center" gutterBottom fontWeight="bold">
+          <Typography variant="h5" component="h2" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
             TRUSSTED Sign In
           </Typography>
           <Typography variant="body2" color="text.secondary" align="center" sx={{ mb: 3 }}>
