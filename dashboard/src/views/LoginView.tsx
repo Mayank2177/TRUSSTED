@@ -29,7 +29,6 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess, onSwitchTo
       return;
     }
 
-    // Valid credentials
     onLoginSuccess();
   };
 

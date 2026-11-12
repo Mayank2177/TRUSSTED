@@ -1,4 +1,3 @@
-// src/views/LimitationsView.tsx
 import React from 'react';
 import { Box, Typography, Card, CardContent } from '@mui/material';
 import { ShieldAlert } from 'lucide-react';

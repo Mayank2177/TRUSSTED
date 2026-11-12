@@ -8,7 +8,6 @@ export async function fetchBenchmarkReport(): Promise<BenchmarkMetric[]> {
     if (!res.ok) throw new Error('Failed to fetch from backend');
     return await res.json();
   } catch {
-    // Mock data fallback if backend is still starting up, matching HONEST reporting rules
     return [
       {
         scenario_id: 'S1',
@@ -68,7 +67,6 @@ export async function verifyReceipt(receipt: Receipt, pubkey: string): Promise<b
     const data = await res.json();
     return data.valid;
   } catch {
-    // Simulated offline verification check fallback
     return receipt.final_hash.length > 0 && pubkey.length > 0;
   }
 }

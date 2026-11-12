@@ -38,7 +38,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children, currentView, onV
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'background.paper', borderRight: '1px solid', borderColor: 'divider' }}>
       <Toolbar sx={{ px: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: '-0.01em' }}>
-          WARRANT
+          TRUSSTED 
         </Typography>
         <Box
           component="span"
